@@ -2,8 +2,8 @@
 
 A new Flutter project.
 
-
-![Details Page](mobile_assesment/34829384-f2ea-48f9-a7e6-d77065a38d1f.jpeg)
+![Splash Screen Page](ecd4cf6e-7d4c-4c13-a5ec-94396cd13858.jpeg)
+![Details Page](34829384-f2ea-48f9-a7e6-d77065a38d1f.jpeg)
 
 ![Details without the heart icon active](4e7142b5-996c-4b92-9b16-a4d7ee792ccb.jpeg)
 
