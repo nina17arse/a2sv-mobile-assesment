@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_bloc.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_event.dart';
+import 'package:mobile_assesment/features/groceries/presentation/pages/home.dart';
+import 'package:mobile_assesment/features/groceries/presentation/pages/splash_screen.dart';
+import 'package:mobile_assesment/locator.dart';
 
-void main() {
+void main() async {
+  await init();
+  Bloc.observer = CustomBlocObserver();
   runApp(const MainApp());
 }
 
@@ -9,16 +17,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: TextButton(
-            onPressed: (){
-              
-            },
-            child:Text('Hello World!')),
-        ),
-      ),
+    return MaterialApp(
+      
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => const SplashScreen(),
+        '/home': (context) => BlocProvider(
+              create: (context) => sl.get<GorceryBloc>()..add(GetAllGroceriesEvent()),
+              child: HomePage(),
+            ),
+      },
     );
   }
 }

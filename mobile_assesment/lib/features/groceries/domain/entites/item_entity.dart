@@ -43,7 +43,7 @@ class optionsEntity extends Equatable {
     return optionsEntity(
       id: json['id'],
       name: json['name'],
-      price: json['price'],
+      price: json['price'].toDouble(),
     );
   }
 }

@@ -26,9 +26,9 @@ class GroceryModel extends ItemEntity{
       id: json['id'],
       title: json['title'],
       imageUrl: json['imageUrl'],
-      rating: json['rating'],
-      price: json['price'],
-      discount: json['discount'],
+      rating: json['rating'].toDouble(),
+      price: json['price'].toDouble(),
+      discount: json['discount'].toDouble(),
       description: json['description'],
       options: (json['options'] as List).map((e) => optionsEntity.fromJson(e)).toList(),
     );

@@ -19,13 +19,12 @@ class RemoteDataSourceImpl extends RemoteDataSource{
   Future<List<GroceryModel>> getAllGroceries() async{
     var url = 'https://g5-flutter-learning-path-be.onrender.com/api/v1/groceries';
     var response = await client.get(Uri.parse(url));
-    var result = [];
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode==200){
-      var items = jsonDecode(response.body);
-      for (var it in items['data']){
-        result.add(it as GroceryModel);
-      }
-      return result as List<GroceryModel>;
+     return (jsonDecode(response.body)['data'] as List)
+          .map((e) => GroceryModel.fromJson(e))
+          .toList();
     }
     else if (response.statusCode == 404){
       return [];
