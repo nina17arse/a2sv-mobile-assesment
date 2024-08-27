@@ -13,7 +13,7 @@ class GroceryRepositoryImpl extends GroceriesRepository{
   GroceryRepositoryImpl(this.remoteDataSource,this.networkInfo);
   @override
   Future<Either<Failure, List<GroceryModel>>> getAllGroceries() async{
-    if (networkInfo.isConnected==true){
+    if (await networkInfo.isConnected){
       try{
         final groceries = await remoteDataSource.getAllGroceries();
         return Right(groceries);
@@ -28,7 +28,7 @@ class GroceryRepositoryImpl extends GroceriesRepository{
   }
   @override
   Future<Either<Failure, GroceryModel>> getGrocerieById(String id) async {
-    if (networkInfo.isConnected==true){
+    if (await networkInfo.isConnected){
       try{
         final groceries = await remoteDataSource.getGrocerieById(id);
         return Right(groceries);
