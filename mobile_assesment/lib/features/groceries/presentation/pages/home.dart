@@ -3,14 +3,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/bloc/search_bloc.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/bloc/search_event.dart';
 import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_bloc.dart';
 import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_event.dart';
 import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_state.dart';
+import 'package:mobile_assesment/features/groceries/presentation/pages/basket.dart';
 import 'package:mobile_assesment/features/groceries/presentation/widgets/item_card.dart';
 
 class HomePage extends StatelessWidget {
+  final TextEditingController search_term = TextEditingController();
   @override
   Widget build(BuildContext context) {
+      void _performSearch() {
+    final search = search_term.text;
+    context.read<SearchBloc>().add(SearchProductEvent(search));
+  }
+    int currentIndex = 0;
+    bool isPressed = false;
+    List<Widget> pages = [
+      HomePage(),
+      MyBasket(),
+    ];
+    List<Widget> bottomNavItems = [
+      Icon(Icons.home_rounded,size: 30,color: Colors.black,),
+      Icon(Icons.shopping_cart_outlined,color: Colors.black,size: 30,),
+    ];
     Future<void> onRefresh() {
       context.read<GorceryBloc>().add(GetAllGroceriesEvent());
       return  Future.delayed(Duration(seconds: 3));}
@@ -60,6 +78,7 @@ class HomePage extends StatelessWidget {
               width: 345,
               height: 48,
               decoration: BoxDecoration(
+                
                 border: Border.all(color: Color.fromRGBO(186, 189, 193, 1)),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
@@ -78,7 +97,11 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Icon(Icons.tune_rounded),
+                GestureDetector(
+                  onTap: (){
+                    _performSearch();
+                  },
+                  child: Icon(Icons.tune_rounded)),
               ],),
 
             ),
@@ -122,6 +145,25 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        currentIndex: currentIndex,
+        items: [
+          BottomNavigationBarItem(icon: bottomNavItems[0], label: ''),
+          BottomNavigationBarItem(icon: bottomNavItems[1], label: ''),
+        ],
+        onTap: (index) {
+          currentIndex = index;
+          if (index==0) {
+
+            Navigator.pushNamed(context, '/home');
+            context.read<GorceryBloc>().add(GetAllGroceriesEvent());
+          } else {
+            Navigator.pushNamed(context, '/basket');
+          }
+          
+        },
+      ),
     );
   }
 }
@@ -134,3 +176,5 @@ class CustomBlocObserver extends BlocObserver {
     print('Next State: ${change.nextState}');
   }
 }
+
+

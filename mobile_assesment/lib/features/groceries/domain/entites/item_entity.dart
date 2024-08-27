@@ -10,6 +10,7 @@ class ItemEntity extends Equatable {
     required this.discount,
     required this.description,
     required this.options,
+    required this.isFavourited,
   });
 
   final String id;
@@ -20,9 +21,10 @@ class ItemEntity extends Equatable {
   final double discount;
   final String description;
   final List<optionsEntity> options;
+  final bool isFavourited;
 
   @override
-  List<Object> get props => [id, title, imageUrl, rating, price, discount, description, options];
+  List<Object> get props => [id, title, imageUrl, rating, price, discount, description, options, isFavourited];
 }
 
 class optionsEntity extends Equatable {
@@ -30,11 +32,13 @@ class optionsEntity extends Equatable {
     required this.id,
     required this.name,
     required this.price,
+    required this.isChecked,
   });
 
   final String id;
   final String name;
   final double price;
+  final bool isChecked;
 
   @override
   List<Object> get props => [id, name, price];
@@ -44,6 +48,7 @@ class optionsEntity extends Equatable {
       id: json['id'],
       name: json['name'],
       price: json['price'].toDouble(),
+      isChecked: json['isChecked']?? false,
     );
   }
 }

@@ -9,6 +9,7 @@ class GroceryModel extends ItemEntity{
     required double price,
     required double discount,
     required String description,
+    required bool isFavourited,
     required List<optionsEntity> options,
   }) : super(
     id: id,
@@ -19,10 +20,12 @@ class GroceryModel extends ItemEntity{
     discount: discount,
     description: description,
     options: options,
+    isFavourited: isFavourited,
   );
 
   factory GroceryModel.fromJson(Map<String, dynamic> json) {
     return GroceryModel(
+      isFavourited: json['isFavourited'] ?? false,
       id: json['id'],
       title: json['title'],
       imageUrl: json['imageUrl'],

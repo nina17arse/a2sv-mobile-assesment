@@ -9,7 +9,9 @@ import 'package:mobile_assesment/features/groceries/data/repository/grocery_repo
 import 'package:mobile_assesment/features/groceries/domain/repositories/grocery_repository.dart';
 import 'package:mobile_assesment/features/groceries/domain/usecases/get_all_groceries.dart';
 import 'package:mobile_assesment/features/groceries/domain/usecases/get_grocerie_by_id.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/bloc/search_bloc.dart';
 import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_bloc.dart';
+import 'package:mobile_assesment/features/groceries/presentation/bloc/grocery/gorcery_event.dart';
 
 final sl = GetIt.instance;
 
@@ -46,6 +48,7 @@ Future<void> init() async {
     getAllGroceries: sl(),
     getGrocerieById: sl()
   ));
+  sl.registerFactory(()=> SearchBloc(getAllGroceries: sl()));
   
   //!COre
 
